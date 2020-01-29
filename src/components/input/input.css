@@ -1,0 +1,16 @@
+.input {
+  position: relative;
+
+  max-width: 320px;
+
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.input__label {
+  margin-bottom: 4px;
+}
+
+.input__field {
+  padding: 4px;
+}

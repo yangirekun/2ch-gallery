@@ -1,19 +1,38 @@
-import React, { FC, FormEvent, memo, useCallback } from 'react';
+import React, { FC, useEffect } from "react";
+import { connect } from "react-redux";
 
-import { MainPage } from '../../components/main-page';
+import { fetchBoards } from "../../store/actions";
 
-const Container: FC = () => {
-    const handleAuth = useCallback(
-        (e: FormEvent<HTMLButtonElement>) => {
-            e.preventDefault();
+import { MainPage } from "../../components/main-page";
 
-            console.log('Авторизация...');
-        }, []
-    );
+import { getBoards } from "../../store/reducers/selectors";
 
-    return <MainPage 
-        handleAuth={handleAuth}
-    />
-}
+import { Store, Board } from "../../store/types";
 
-export const MainPageContainer = memo(Container);
+type Props = {
+  boards: ReadonlyArray<Board>;
+  fetchBoards: typeof fetchBoards;
+};
+
+const Container: FC<Props> = ({ boards, fetchBoards }) => {
+  useEffect(() => {
+    if (!boards.length) {
+      fetchBoards();
+    }
+  }, [fetchBoards, boards.length]);
+
+  return <MainPage />;
+};
+
+const stateToProps = (state: Store) => ({
+  boards: getBoards(state)
+});
+
+const dispatchToProps = {
+  fetchBoards
+};
+
+export const MainPageContainer = connect(
+  stateToProps,
+  dispatchToProps
+)(Container);

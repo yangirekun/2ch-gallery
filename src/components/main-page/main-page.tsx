@@ -1,19 +1,13 @@
-import React, { FC, FormEvent, memo } from "react";
+import React, { FC, memo } from "react";
 
-import "./main-page.css";
+import { FiltersContainer } from "../../containers/filters";
+import { GalleryContainer } from "../../containers/gallery";
 
-type Props = {
-  handleAuth: (e: FormEvent<HTMLButtonElement>) => void;
-};
-
-const Component: FC<Props> = ({ handleAuth }) => (
+const Component: FC = () => (
   <section className="main-page">
-	<form className="form-auth">
-	  <button className="form-auth__control" onClick={handleAuth}>
-			авторизоваться
-	  </button>
-	</form>
+    <FiltersContainer />
+    <GalleryContainer />
   </section>
 );
 
-export const MainPage = memo(Component);
+export const MainPage: FC = memo(Component);

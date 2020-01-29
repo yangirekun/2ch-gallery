@@ -1,0 +1,15 @@
+.app-filters {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-end;
+}
+
+.app-filters__filter,
+.app-filters__control {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+/* .app-filters__filter {
+  margin-bottom: 8px;
+} */
