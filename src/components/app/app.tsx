@@ -1,5 +1,4 @@
 import React from "react";
-import { HashRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 
@@ -20,12 +19,10 @@ sagaMiddleware.run(rootSaga);
 
 export const App: React.FC = () => {
   return (
-    <HashRouter>
-      <Provider store={store}>
-        <PageLayout>
-          <MainPageContainer />
-        </PageLayout>
-      </Provider>
-    </HashRouter>
+    <Provider store={store}>
+      <PageLayout>
+        <MainPageContainer />
+      </PageLayout>
+    </Provider>
   );
 };

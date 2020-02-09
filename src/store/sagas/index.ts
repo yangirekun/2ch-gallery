@@ -122,6 +122,7 @@ function* onFetchImages() {
               images.push({
                 alt: file.displayname,
                 path: `http://2ch.hk${file.path}`,
+                preview: `http://2ch.hk${file.thumbnail}`,
                 width: file.tn_width,
                 height: file.tn_height
               });

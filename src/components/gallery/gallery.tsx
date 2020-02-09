@@ -10,17 +10,18 @@ type Props = {
 
 const Component: FC<Props> = ({ imagesList }) => {
   const handleImageClick = useCallback((e: MouseEvent<HTMLImageElement>) => {
-    window.open(e.currentTarget.src);
+    window.open(e.currentTarget.id);
   }, []);
 
   return (
     <section className="app__gallery">
-      {imagesList.map(({ alt, path, width, height }, i) => (
+      {imagesList.map(({ alt, path, preview, width, height }, i) => (
         <img
+          id={path}
           className="app__gallery-item"
           key={i}
           alt={alt}
-          src={path}
+          src={preview}
           width={width}
           height={height}
           onClick={handleImageClick}

@@ -11,6 +11,7 @@ export type BoardsReducer = {
 export type Image = {
   readonly alt: string;
   readonly path: string;
+  readonly preview: string;
   readonly height: number;
   readonly width: number;
 };
