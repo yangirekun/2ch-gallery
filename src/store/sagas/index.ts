@@ -72,14 +72,27 @@ function* onDownloadImages() {
         data: { images: imagesList }
       });
 
-      for (const image of imagesList) {
-        const link = document.createElement("a");
-
-        link.download = image.fileName;
-        link.href = `/images/${image.fileName}`;
-
-        link.click();
-      }
+      yield call(() => {
+        return new Promise((res, rej) => {
+          let i = 0;
+      
+          let timer = setInterval(() => {
+      
+            if (i < imagesList.length) {
+              const link = document.createElement("a");
+      
+              link.download = imagesList[i].fileName;
+              link.href = `/images/${imagesList[i].fileName}`;
+      
+              link.click();
+              i++;
+            } else {
+              clearInterval(timer);
+              res();
+            }
+          }, 500);
+        });
+      });
 
       yield put({
         type: DOWNLOAD_IMAGES_SUCCESS
