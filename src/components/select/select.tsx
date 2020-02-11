@@ -7,6 +7,7 @@ import React, {
   FormEvent
 } from "react";
 
+import src from "../../assets/icons8-expand-arrow-24.png";
 import "./select.css";
 
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
   placeholder?: string;
   list?: ReadonlyArray<{ id: string; label: string }>;
   value?: string;
-  onChange?: ({ value }: { value: string }) => void;
+  onChange?: (args: { value: string }) => void;
 };
 
 const Component: FC<Props> = ({
@@ -77,12 +78,19 @@ const Component: FC<Props> = ({
         value={inputValue}
         onChange={handleFilterList}
       />
-      <div className="select__switcher" onClick={handleToggleSelect}>
-        {selectIsExpanded ? "▼" : "◄"}
-      </div>
-      <ul className="select__data-list">
-        {selectIsExpanded &&
-          filteredList.map(item => (
+      <img
+        alt="dropdown-arrow"
+        src={src}
+        className={`select__switcher ${
+          selectIsExpanded
+            ? "select__switcher--expanded"
+            : "select__switcher--collapsed"
+        }`}
+        onClick={handleToggleSelect}
+      />
+      {selectIsExpanded && (
+        <ul className="select__data-list">
+          {filteredList.map(item => (
             <li
               key={item.id}
               id={item.id}
@@ -92,7 +100,8 @@ const Component: FC<Props> = ({
               {item.label}
             </li>
           ))}
-      </ul>
+        </ul>
+      )}
     </div>
   );
 };

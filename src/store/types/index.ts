@@ -5,10 +5,12 @@ export type Board = {
 
 export type BoardsReducer = {
   readonly loading: boolean;
+  readonly error: "";
   readonly list: ReadonlyArray<Board>;
 };
 
 export type Image = {
+  readonly fileName: string;
   readonly alt: string;
   readonly path: string;
   readonly preview: string;
@@ -18,10 +20,11 @@ export type Image = {
 
 export type ImagesReducer = {
   readonly loading: boolean;
+  readonly error: "";
   readonly list: ReadonlyArray<Image>;
 };
 
 export type Store = {
-  boards: BoardsReducer;
-  images: ImagesReducer;
+  readonly boards: BoardsReducer;
+  readonly images: ImagesReducer;
 };

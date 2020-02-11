@@ -6,10 +6,11 @@ import { Button } from "../button";
 
 import "./filters.css";
 
-import { Board } from "../../store/types";
+import { Board, Image } from "../../store/types";
 
 type Props = {
   boardsList: ReadonlyArray<Board>;
+  imagesList: ReadonlyArray<Image>;
   boardID: string;
   threadID: string;
   onChangeBoardID: ({ value }: { value: string }) => void;
@@ -20,6 +21,7 @@ type Props = {
 
 const Component: FC<Props> = ({
   boardsList,
+  imagesList,
   boardID,
   onChangeBoardID,
   threadID,
@@ -31,7 +33,7 @@ const Component: FC<Props> = ({
     <Select
       id="board-id"
       label="Доска"
-      className="app-filters__filter"
+      className="app-filters__filter app-filters__filter--board-id"
       placeholder="Название доски"
       value={boardID}
       list={boardsList}
@@ -40,7 +42,7 @@ const Component: FC<Props> = ({
     <Input
       id="thread-id"
       label="Тред"
-      className="app-filters__filter"
+      className="app-filters__filter app-filters__filter--thread-id"
       placeholder="Номер треда"
       value={threadID}
       onChange={onChangeThreadID}
@@ -57,7 +59,7 @@ const Component: FC<Props> = ({
       label="Загрузить все"
       className="app-filters__control"
       onClick={onDownloadAll}
-      disabled
+      disabled={!imagesList.length}
     />
   </form>
 );

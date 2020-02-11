@@ -1,20 +1,28 @@
 import React, { FC, useState, useCallback, FormEvent } from "react";
 import { connect } from "react-redux";
 
-import { fetchImages } from "../../store/actions";
+import { fetchImages, downloadImages } from "../../store/actions";
 
 import { Filters } from "../../components/filters";
 
-import { getBoards } from "../../store/reducers/selectors";
+import { getBoards, getImages } from "../../store/reducers/selectors";
 
-import { Store, Board } from "../../store/types";
+import { Store, Board, Image } from "../../store/types";
 
 type Props = {
   boardsList?: ReadonlyArray<Board>;
+  imagesList?: ReadonlyArray<Image>;
   fetchImages: typeof fetchImages;
+  downloadImages: typeof downloadImages;
 };
 
-const Container: FC<Props> = ({ boardsList = [], fetchImages }) => {
+const Container: FC<Props> = ({
+  boardsList = [],
+  imagesList = [],
+  fetchImages,
+  downloadImages
+}) => {
+  
   const [boardID, setBoardID] = useState("");
   const handleChangeBoardID = useCallback(({ value }: { value: string }) => {
     setBoardID(value);
@@ -34,15 +42,19 @@ const Container: FC<Props> = ({ boardsList = [], fetchImages }) => {
     [boardID, threadID, fetchImages]
   );
 
-  const handleDownloadAll = useCallback((e: FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleDownloadAll = useCallback(
+    (e: FormEvent<HTMLButtonElement>) => {
+      e.preventDefault();
 
-    console.log("Скачиваю все...");
-  }, []);
+      downloadImages(imagesList);
+    },
+    [imagesList, downloadImages]
+  );
 
   return (
     <Filters
       boardsList={boardsList}
+      imagesList={imagesList}
       boardID={boardID}
       onChangeBoardID={handleChangeBoardID}
       threadID={threadID}
@@ -54,11 +66,13 @@ const Container: FC<Props> = ({ boardsList = [], fetchImages }) => {
 };
 
 const stateToProps = (state: Store) => ({
-  boardsList: getBoards(state)
+  boardsList: getBoards(state),
+  imagesList: getImages(state)
 });
 
 const dispatchToProps = {
-  fetchImages
+  fetchImages,
+  downloadImages
 };
 
 export const FiltersContainer = connect(

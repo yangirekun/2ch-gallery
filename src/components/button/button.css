@@ -2,4 +2,36 @@
   display: block;
 
   padding: 4px;
+
+  color: #fff;
+  background-color: #DDDDDD;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  border: 1px solid #FF6600;
+  background-color: #FF6600;
+  border-radius: 3px;
+
+  opacity: 0.6;
+
+  outline: none;
+  cursor: pointer;
+
+  transition: 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 599px) {
+  .button {
+    width: 100%;
+  }
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

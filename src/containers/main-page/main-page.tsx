@@ -5,27 +5,29 @@ import { fetchBoards } from "../../store/actions";
 
 import { MainPage } from "../../components/main-page";
 
-import { getBoards } from "../../store/reducers/selectors";
+import { getBoards, getAppNetworkStatus } from "../../store/reducers/selectors";
 
 import { Store, Board } from "../../store/types";
 
 type Props = {
   boards: ReadonlyArray<Board>;
   fetchBoards: typeof fetchBoards;
+  isLoading: boolean;
 };
 
-const Container: FC<Props> = ({ boards, fetchBoards }) => {
+const Container: FC<Props> = ({ boards, fetchBoards, isLoading }) => {
   useEffect(() => {
     if (!boards.length) {
       fetchBoards();
     }
   }, [fetchBoards, boards.length]);
 
-  return <MainPage />;
+  return <MainPage isLoading={isLoading} />;
 };
 
 const stateToProps = (state: Store) => ({
-  boards: getBoards(state)
+  boards: getBoards(state),
+  isLoading: getAppNetworkStatus(state)
 });
 
 const dispatchToProps = {

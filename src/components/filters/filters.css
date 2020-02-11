@@ -4,12 +4,35 @@
   align-items: flex-end;
 }
 
+@media screen and (max-width: 599px) {
+  .app-filters {
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 .app-filters__filter,
 .app-filters__control {
   margin-right: 8px;
   margin-bottom: 8px;
 }
 
-/* .app-filters__filter {
-  margin-bottom: 8px;
-} */
+@media screen and (max-width: 599px) {
+  .app-filters__filter,
+  .app-filters__control {
+    margin-right: 0px;
+  }
+
+  .app-filters__control {
+    margin-bottom: 16px;
+  }
+
+  .app-filters__filter--board-id {
+    margin-bottom: 8px;
+  }
+
+  .app-filters__filter--thread-id {
+    margin-bottom: 16px;
+  }
+}

@@ -13,6 +13,7 @@ import { BoardsReducer, ImagesReducer } from "../types";
 
 const boardsReducerInitialState: BoardsReducer = {
   loading: false,
+  error: "",
   list: []
 };
 
@@ -34,6 +35,7 @@ const boardsReducer = (
 
 const imagesReducerInitialState: ImagesReducer = {
   loading: false,
+  error: "",
   list: []
 };
 

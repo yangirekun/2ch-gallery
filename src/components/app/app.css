@@ -1,6 +1,6 @@
-.app {
-}
+body {
+  color: #333333;
+  background-color: #EEE;
 
-.app-main {
-  padding: 8px;
+  font-size: 15px;
 }

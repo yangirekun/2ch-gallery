@@ -8,7 +8,7 @@ type Props = {
   className?: string;
   placeholder?: string;
   value?: string;
-  onChange?: ({ value }: { value: string }) => void;
+  onChange?: (args: { value: string }) => void;
 };
 
 const Component: FC<Props> = ({
