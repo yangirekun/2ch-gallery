@@ -1,0 +1,13 @@
+.app__gallery {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.app__gallery-item {
+  display: block;
+
+  margin-right: 8px;
+  margin-bottom: 8px;
+
+  cursor: pointer;
+}

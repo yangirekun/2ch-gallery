@@ -1,0 +1,28 @@
+.spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: linear-gradient(rgba(0,0,0,0.9),rgba(0,0,0,0.8));
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner__image {
+    width: 200px;
+    height: 200px;
+
+    background: url("../../assets/spinner.svg") no-repeat 50% 50%;
+}
+
+.spinner__message {
+    font-size: 24px;
+    color: #FB6E00;
+}
