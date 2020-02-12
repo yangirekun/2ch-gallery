@@ -10,3 +10,6 @@ export const getImages = createSelector(IMAGES, list => list);
 
 export const getAppNetworkStatus = (state: Store) =>
   state.boards.loading || state.images.loading;
+
+export const getAppError = (state: Store) =>
+  state.boards.error || state.images.error;

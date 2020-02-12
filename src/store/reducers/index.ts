@@ -6,14 +6,20 @@ import {
   FETCH_BOARDS_FAILURE,
   FETCH_IMAGES_REQUEST,
   FETCH_IMAGES_SUCCESS,
-  FETCH_IMAGES_FAILURE
+  FETCH_IMAGES_FAILURE,
+  DOWNLOAD_IMAGES_REQUEST,
+  DOWNLOAD_IMAGES_SUCCESS,
+  DOWNLOAD_IMAGES_FAILURE,
+  REMOVE_IMAGES_REQUEST,
+  REMOVE_IMAGES_SUCCESS,
+  REMOVE_IMAGES_FAILURE
 } from "../../constants";
 
 import { BoardsReducer, ImagesReducer } from "../types";
 
 const boardsReducerInitialState: BoardsReducer = {
   loading: false,
-  error: "",
+  error: false,
   list: []
 };
 
@@ -23,11 +29,11 @@ const boardsReducer = (
 ) => {
   switch (action.type) {
     case FETCH_BOARDS_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: false };
     case FETCH_BOARDS_SUCCESS:
-      return { ...state, list: action.payload, loading: false };
+      return { ...state, list: action.payload, loading: false, error: false };
     case FETCH_BOARDS_FAILURE:
-      return { ...state, loading: false };
+      return { ...state, loading: false, error: true };
     default:
       return state;
   }
@@ -35,7 +41,7 @@ const boardsReducer = (
 
 const imagesReducerInitialState: ImagesReducer = {
   loading: false,
-  error: "",
+  error: false,
   list: []
 };
 
@@ -45,11 +51,22 @@ const imagesReducer = (
 ) => {
   switch (action.type) {
     case FETCH_IMAGES_REQUEST:
-      return { ...state, loading: true };
+    case DOWNLOAD_IMAGES_REQUEST:
+    case REMOVE_IMAGES_REQUEST:
+      return { ...state, loading: true, error: false };
     case FETCH_IMAGES_SUCCESS:
-      return { ...state, list: action.payload, loading: false };
+    case DOWNLOAD_IMAGES_SUCCESS:
+    case REMOVE_IMAGES_SUCCESS:
+      return {
+        ...state,
+        list: action.payload || [...state.list],
+        loading: false,
+        error: false
+      };
     case FETCH_IMAGES_FAILURE:
-      return { ...state, loading: false };
+    case DOWNLOAD_IMAGES_FAILURE:
+    case REMOVE_IMAGES_FAILURE:
+      return { ...state, loading: false, error: true };
     default:
       return state;
   }

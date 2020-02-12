@@ -30,8 +30,7 @@ function* onFetchBoards() {
       });
     } catch (error) {
       yield put({
-        type: FETCH_BOARDS_FAILURE,
-        payload: error
+        type: FETCH_BOARDS_FAILURE
       });
     }
   });
@@ -55,8 +54,7 @@ function* onFetchImages() {
       });
     } catch (error) {
       yield put({
-        type: FETCH_IMAGES_FAILURE,
-        payload: error
+        type: FETCH_IMAGES_FAILURE
       });
     }
   });
@@ -103,8 +101,7 @@ function* onDownloadImages() {
       });
     } catch (error) {
       yield put({
-        type: DOWNLOAD_IMAGES_FAILURE,
-        payload: error
+        type: DOWNLOAD_IMAGES_FAILURE
       });
     }
   });
@@ -120,8 +117,7 @@ function* onRemoveImages() {
       });
     } catch (error) {
       yield put({
-        type: REMOVE_IMAGES_FAILURE,
-        payload: error
+        type: REMOVE_IMAGES_FAILURE
       });
     }
   });

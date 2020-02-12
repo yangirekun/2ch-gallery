@@ -1,4 +1,5 @@
 import React, { FC, memo, useCallback, MouseEvent } from "react";
+import "lazysizes";
 
 import "./gallery.css";
 
@@ -18,10 +19,10 @@ const Component: FC<Props> = ({ imagesList }) => {
       {imagesList.map(({ alt, path, preview, width, height }, i) => (
         <img
           id={path}
-          className="app__gallery-item"
+          className="lazyload app__gallery-item"
           key={i}
           alt={alt}
-          src={preview}
+          data-src={preview}
           width={width}
           height={height}
           onClick={handleImageClick}

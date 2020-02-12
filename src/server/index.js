@@ -20,8 +20,9 @@ app.use(bodyParser.json());
 app.get("/health", healthCheck);
 app.get("/api/boards", boardsFetch);
 app.get("/api/images", imagesFetch);
-app.post("/api/download-images", downloadImagesToServer);
 app.get("/api/remove-images", removeImagesFromServer);
+
+app.post("/api/download-images", downloadImagesToServer);
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 app.listen(3000);

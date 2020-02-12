@@ -5,7 +5,7 @@ export type Board = {
 
 export type BoardsReducer = {
   readonly loading: boolean;
-  readonly error: "";
+  readonly error: boolean;
   readonly list: ReadonlyArray<Board>;
 };
 
@@ -20,7 +20,7 @@ export type Image = {
 
 export type ImagesReducer = {
   readonly loading: boolean;
-  readonly error: "";
+  readonly error: boolean;
   readonly list: ReadonlyArray<Image>;
 };
 
