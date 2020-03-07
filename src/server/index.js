@@ -7,7 +7,7 @@ const {
   boardsFetch,
   imagesFetch,
   downloadImagesToServer,
-  removeImagesFromServer
+  removeImagesFromServer,
 } = require("./handlers");
 
 const app = express();
@@ -29,5 +29,5 @@ app.get("*", (req, res) => {
 });
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 app.listen(port);

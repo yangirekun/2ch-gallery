@@ -1,27 +1,63 @@
 import {
-  FETCH_BOARDS_REQUEST,
-  FETCH_IMAGES_REQUEST,
-  DOWNLOAD_IMAGES_REQUEST,
-  REMOVE_IMAGES_REQUEST
+  boardsActions,
+  mediaActions,
 } from "../../constants";
 
-import { Image } from "../types";
+import { Image, Board, ImagesAction, BoardsAction } from "../types";
 
-export const fetchBoards = () => ({
-  type: FETCH_BOARDS_REQUEST
-});
+export const boardsActionCreators = {
+  fetchBoardsRequest: (): BoardsAction => ({
+    type: boardsActions.FETCH_BOARDS_REQUEST,
+  }),
 
-export const fetchImages = (boardID: string, threadID: string) => ({
-  type: FETCH_IMAGES_REQUEST,
-  boardID,
-  threadID
-});
+  fetchBoardsSuccess: (payload: ReadonlyArray<Board>): BoardsAction => ({
+    type: boardsActions.FETCH_BOARDS_SUCCESS,
+    payload,
+  }),
 
-export const downloadImages = (imagesList: ReadonlyArray<Image>) => ({
-  type: DOWNLOAD_IMAGES_REQUEST,
-  imagesList
-});
+  fetchBoardsFailure: (): BoardsAction => ({
+    type: boardsActions.FETCH_BOARDS_FAILURE,
+  }),
+};
 
-export const removeImages = () => ({
-  type: REMOVE_IMAGES_REQUEST
-});
+export const mediaActionCreators = {
+  fetchImagesRequest: (boardID: string, threadID: string): ImagesAction => ({
+    type: mediaActions.FETCH_IMAGES_REQUEST,
+    boardID,
+    threadID,
+  }),
+
+  fetchImagesSuccess: (payload: ReadonlyArray<Image>): ImagesAction => ({
+    type: mediaActions.FETCH_IMAGES_SUCCESS,
+    payload,
+  }),
+
+  fetchImagesFailure: (): ImagesAction => ({
+    type: mediaActions.FETCH_IMAGES_FAILURE,
+  }),
+
+  downloadImagesRequest: (imagesList: ReadonlyArray<Image>): ImagesAction => ({
+    type: mediaActions.DOWNLOAD_IMAGES_REQUEST,
+    imagesList,
+  }),
+
+  downloadImagesSuccess: (): ImagesAction => ({
+    type: mediaActions.DOWNLOAD_IMAGES_SUCCESS,
+  }),
+
+  downloadImagesFailure: (): ImagesAction => ({
+    type: mediaActions.DOWNLOAD_IMAGES_FAILURE,
+  }),
+
+  removeImagesRequest: (): ImagesAction => ({
+    type: mediaActions.REMOVE_IMAGES_REQUEST,
+  }),
+
+  removeImagesSuccess: (): ImagesAction => ({
+    type: mediaActions.REMOVE_IMAGES_SUCCESS,
+  }),
+
+  removeImagesFailure: (): ImagesAction => ({
+    type: mediaActions.REMOVE_IMAGES_FAILURE,
+  }),
+};

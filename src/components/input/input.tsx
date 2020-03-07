@@ -17,12 +17,14 @@ const Component: FC<Props> = ({
   className = "",
   placeholder = "Подсказка",
   value = "",
-  onChange
+  onChange,
 }) => {
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
 
-    onChange && onChange({ value });
+    if (onChange) {
+      onChange({ value });
+    }
   };
 
   return (

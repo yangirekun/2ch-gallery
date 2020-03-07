@@ -15,9 +15,10 @@ const Component: FC<Props> = ({
   label = "Текст кнопки",
   className = "",
   disabled = false,
-  onClick
+  onClick,
 }) => (
   <button
+    type="button"
     id={id}
     className={`button ${className}`}
     disabled={disabled}

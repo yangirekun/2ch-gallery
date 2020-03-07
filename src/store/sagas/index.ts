@@ -1,124 +1,91 @@
 import axios, { AxiosResponse } from "axios";
-import { AnyAction } from "redux";
 import { all, call, put, takeEvery } from "redux-saga/effects";
 
+import { boardsActionCreators, mediaActionCreators } from "../actions";
+
 import {
-  FETCH_BOARDS_REQUEST,
-  FETCH_BOARDS_SUCCESS,
-  FETCH_BOARDS_FAILURE,
-  FETCH_IMAGES_REQUEST,
-  FETCH_IMAGES_SUCCESS,
-  FETCH_IMAGES_FAILURE,
-  DOWNLOAD_IMAGES_REQUEST,
-  DOWNLOAD_IMAGES_SUCCESS,
-  DOWNLOAD_IMAGES_FAILURE,
-  REMOVE_IMAGES_REQUEST,
-  REMOVE_IMAGES_SUCCESS,
-  REMOVE_IMAGES_FAILURE
+  boardsActions,
+  mediaActions,
 } from "../../constants";
 
-import { Image, Board } from "../types";
+import { Image, Board, ImagesAction } from "../types";
 
 function* onFetchBoards() {
-  yield takeEvery(FETCH_BOARDS_REQUEST, function* fetchBoards() {
+  yield takeEvery(boardsActions.FETCH_BOARDS_REQUEST, function* fetchBoards() {
     try {
       const { data }: AxiosResponse<Board[]> = yield call(axios, `/api/boards`);
 
-      yield put({
-        type: FETCH_BOARDS_SUCCESS,
-        payload: data
-      });
-    } catch (error) {
-      yield put({
-        type: FETCH_BOARDS_FAILURE
-      });
+      yield put(boardsActionCreators.fetchBoardsSuccess(data));
+    } catch {
+      yield put(boardsActionCreators.fetchBoardsFailure());
     }
   });
 }
 
 function* onFetchImages() {
-  yield takeEvery(FETCH_IMAGES_REQUEST, function* fetchImages({
+  yield takeEvery(mediaActions.FETCH_IMAGES_REQUEST, function* fetchImages({
     boardID,
-    threadID
-  }: AnyAction) {
+    threadID,
+  }: ImagesAction) {
     try {
       const { data }: AxiosResponse<Image[]> = yield call(
         axios,
         `/api/images`,
-        { params: { boardID, threadID } }
+        { params: { boardID, threadID } },
       );
 
-      yield put({
-        type: FETCH_IMAGES_SUCCESS,
-        payload: data
-      });
-    } catch (error) {
-      yield put({
-        type: FETCH_IMAGES_FAILURE
-      });
+      yield put(mediaActionCreators.fetchImagesSuccess(data));
+    } catch {
+      yield put(mediaActionCreators.fetchImagesFailure());
     }
   });
 }
 
 function* onDownloadImages() {
-  yield takeEvery(DOWNLOAD_IMAGES_REQUEST, function* downloadImages({
-    imagesList
-  }: AnyAction) {
+  yield takeEvery(mediaActions.DOWNLOAD_IMAGES_REQUEST, function* downloadImages({
+    imagesList = [],
+  }: ImagesAction) {
     try {
       yield call(axios, `/api/download-images`, {
         method: "post",
-        data: { images: imagesList }
+        data: { images: imagesList },
       });
 
-      yield call(() => {
-        return new Promise((res, rej) => {
-          let i = 0;
-      
-          let timer = setInterval(() => {
-      
-            if (i < imagesList.length) {
-              const link = document.createElement("a");
-      
-              link.download = imagesList[i].fileName;
-              link.href = `/images/${imagesList[i].fileName}`;
-      
-              link.click();
-              i++;
-            } else {
-              clearInterval(timer);
-              res();
-            }
-          }, 500);
-        });
-      });
+      yield call(() => new Promise((res) => {
+        let i = 0;
 
-      yield put({
-        type: DOWNLOAD_IMAGES_SUCCESS
-      });
+        const timer = setInterval(() => {
+          if (i < imagesList.length) {
+            const link = document.createElement("a");
 
-      yield put({
-        type: REMOVE_IMAGES_REQUEST
-      });
-    } catch (error) {
-      yield put({
-        type: DOWNLOAD_IMAGES_FAILURE
-      });
+            link.download = imagesList[i].fileName;
+            link.href = `/images/${imagesList[i].fileName}`;
+
+            link.click();
+            i++;
+          } else {
+            clearInterval(timer);
+            res();
+          }
+        }, 500);
+      }));
+
+      yield put(mediaActionCreators.downloadImagesSuccess());
+      yield put(mediaActionCreators.removeImagesRequest());
+    } catch {
+      yield put(mediaActionCreators.downloadImagesFailure());
     }
   });
 }
 
 function* onRemoveImages() {
-  yield takeEvery(REMOVE_IMAGES_REQUEST, function* downloadImages() {
+  yield takeEvery(mediaActions.REMOVE_IMAGES_REQUEST, function* downloadImages() {
     try {
       yield call(axios, `/api/remove-images`);
 
-      yield put({
-        type: REMOVE_IMAGES_SUCCESS
-      });
-    } catch (error) {
-      yield put({
-        type: REMOVE_IMAGES_FAILURE
-      });
+      yield put(mediaActionCreators.removeImagesSuccess());
+    } catch {
+      yield put(mediaActionCreators.removeImagesFailure());
     }
   });
 }
@@ -128,6 +95,6 @@ export function* rootSaga() {
     onFetchBoards(),
     onFetchImages(),
     onDownloadImages(),
-    onRemoveImages()
+    onRemoveImages(),
   ]);
 }

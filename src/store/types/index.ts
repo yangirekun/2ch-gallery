@@ -9,6 +9,11 @@ export type BoardsReducer = {
   readonly list: ReadonlyArray<Board>;
 };
 
+export type BoardsAction = {
+  readonly type: string;
+  readonly payload?: ReadonlyArray<Board>;
+};
+
 export type Image = {
   readonly fileName: string;
   readonly alt: string;
@@ -22,6 +27,14 @@ export type ImagesReducer = {
   readonly loading: boolean;
   readonly error: boolean;
   readonly list: ReadonlyArray<Image>;
+};
+
+export type ImagesAction = {
+  readonly type: string;
+  readonly boardID?: string;
+  readonly threadID?: string;
+  readonly payload?: ReadonlyArray<Image>;
+  readonly imagesList?: ReadonlyArray<Image>;
 };
 
 export type Store = {

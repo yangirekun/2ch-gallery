@@ -4,7 +4,7 @@ import React, {
   useEffect,
   memo,
   MouseEvent,
-  FormEvent
+  FormEvent,
 } from "react";
 
 import src from "../../assets/icons8-expand-arrow-24.png";
@@ -27,13 +27,16 @@ const Component: FC<Props> = ({
   placeholder = "Подсказка",
   list = [],
   value = "",
-  onChange
+  onChange,
 }) => {
   useEffect(() => {
     setFilteredList(list);
 
-    const inputValue = list.find(item => item.id === value);
-    inputValue && setInputValue(inputValue.label);
+    const inputValue = list.find((item) => item.id === value);
+
+    if (inputValue) {
+      setInputValue(inputValue.label);
+    }
   }, [list, value]);
 
   const [selectIsExpanded, toggleSelect] = useState(false);
@@ -48,9 +51,9 @@ const Component: FC<Props> = ({
 
     setInputValue(value);
     setFilteredList(
-      list.filter(item =>
-        item.label.toLowerCase().includes(value.toLowerCase())
-      )
+      list.filter((item) =>
+        item.label.toLowerCase().includes(value.toLowerCase()),
+      ),
     );
 
     if (!selectIsExpanded) {
@@ -61,8 +64,10 @@ const Component: FC<Props> = ({
   const handleSelectValue = (e: MouseEvent<HTMLLIElement>) => {
     const { id: value } = e.currentTarget;
 
-    onChange && onChange({ value });
-    toggleSelect(false);
+    if (onChange) {
+      onChange({ value });
+      toggleSelect(false);
+    }
   };
 
   return (
@@ -90,7 +95,7 @@ const Component: FC<Props> = ({
       />
       {selectIsExpanded && (
         <ul className="select__data-list">
-          {filteredList.map(item => (
+          {filteredList.map((item) => (
             <li
               key={item.id}
               id={item.id}

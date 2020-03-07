@@ -13,8 +13,8 @@ type Props = {
   imagesList: ReadonlyArray<Image>;
   boardID: string;
   threadID: string;
-  onChangeBoardID: ({ value }: { value: string }) => void;
-  onChangeThreadID: ({ value }: { value: string }) => void;
+  onChangeBoardID: (args: { value: string }) => void;
+  onChangeThreadID: (args: { value: string }) => void;
   onSearchMedia: (e: FormEvent<HTMLButtonElement>) => void;
   onDownloadAll: (e: FormEvent<HTMLButtonElement>) => void;
 };
@@ -27,7 +27,7 @@ const Component: FC<Props> = ({
   threadID,
   onChangeThreadID,
   onSearchMedia,
-  onDownloadAll
+  onDownloadAll,
 }) => (
   <form className="app-filters">
     <Select
