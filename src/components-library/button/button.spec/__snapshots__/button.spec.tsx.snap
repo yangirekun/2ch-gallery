@@ -6,6 +6,7 @@ exports[`testing <Button /> it should be rendered correctly 1`] = `
     class="button button-test-class"
     data-testid="button-test-id-button"
     id="button-test-id"
+    type="button"
   >
     button-test-text
   </button>
@@ -19,6 +20,7 @@ exports[`testing <Button /> it should be rendered correctly 2`] = `
     data-testid="button-test-id-button"
     disabled=""
     id="button-test-id"
+    type="button"
   >
     button-test-text
   </button>
@@ -31,6 +33,7 @@ exports[`testing <Button /> it should be rendered correctly 3`] = `
     class="button "
     data-testid="button-test-id-button"
     id="button-test-id"
+    type="button"
   >
     Текст кнопки
   </button>

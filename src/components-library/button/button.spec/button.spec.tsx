@@ -13,7 +13,6 @@ describe("testing <Button />", () => {
   test("it should handle clicks if active", () => {
     render(<Button {...mockProps[0]} />);
     const button = screen.getByRole("button");
-    expect(button).not.toBeDisabled();
     fireEvent.click(button);
     expect(mockProps[0].onClick).toBeCalledTimes(1);
   });
@@ -21,7 +20,6 @@ describe("testing <Button />", () => {
   test("it should ignore clicks if disabled", () => {
     render(<Button {...mockProps[1]} />);
     const button = screen.getByRole("button");
-    expect(button).toBeDisabled();
     fireEvent.click(button);
     expect(mockProps[1].onClick).toBeCalledTimes(0);
   });

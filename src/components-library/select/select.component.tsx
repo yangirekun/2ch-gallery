@@ -22,8 +22,10 @@ const Component: FC<Props> = ({
   useEffect(() => {
     setFilteredList(list);
 
-    const inputValue = list.find((item) => item.id === value);
-    inputValue && setInputValue(inputValue.label);
+    const inputValue = list.find(item => item.id === value);
+    if (inputValue) {
+      setInputValue(inputValue.label);
+    }
   }, [list, value]);
 
   const [selectIsExpanded, toggleSelect] = useState(false);
@@ -38,7 +40,7 @@ const Component: FC<Props> = ({
 
     setInputValue(value);
     setFilteredList(
-      list.filter((item) =>
+      list.filter(item =>
         item.label.toLowerCase().includes(value.toLowerCase())
       )
     );
