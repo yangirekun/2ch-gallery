@@ -1,3 +1,4 @@
+/* TODO: improve structure, implement unit tests */
 import React, { FC, memo } from "react";
 
 import "./spinner.css";

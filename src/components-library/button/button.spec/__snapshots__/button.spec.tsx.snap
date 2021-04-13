@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing <Button /> it should be rendered correctly 1`] = `
+<DocumentFragment>
+  <button
+    class="button button-test-class"
+    data-testid="button-test-id-button"
+    id="button-test-id"
+  >
+    button-test-text
+  </button>
+</DocumentFragment>
+`;
+
+exports[`testing <Button /> it should be rendered correctly 2`] = `
+<DocumentFragment>
+  <button
+    class="button button-test-class"
+    data-testid="button-test-id-button"
+    disabled=""
+    id="button-test-id"
+  >
+    button-test-text
+  </button>
+</DocumentFragment>
+`;
+
+exports[`testing <Button /> it should be rendered correctly 3`] = `
+<DocumentFragment>
+  <button
+    class="button "
+    data-testid="button-test-id-button"
+    id="button-test-id"
+  >
+    Текст кнопки
+  </button>
+</DocumentFragment>
+`;

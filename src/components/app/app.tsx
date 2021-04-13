@@ -4,7 +4,7 @@ import createSagaMiddleware from "redux-saga";
 
 import { MainPageContainer } from "../../containers/main-page";
 
-import { PageLayout } from "../layout";
+import { PageLayout } from "../../components-library/layout";
 
 import { rootSaga } from "../../store/sagas";
 

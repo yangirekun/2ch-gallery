@@ -4,21 +4,11 @@ import React, {
   useEffect,
   memo,
   MouseEvent,
-  FormEvent
+  FormEvent,
 } from "react";
-
 import src from "../../assets/icons8-expand-arrow-24.png";
-import "./select.css";
-
-type Props = {
-  id: string;
-  label?: string;
-  className?: string;
-  placeholder?: string;
-  list?: ReadonlyArray<{ id: string; label: string }>;
-  value?: string;
-  onChange?: (args: { value: string }) => void;
-};
+import "./select.styles.css";
+import { Props } from "./select.types";
 
 const Component: FC<Props> = ({
   id,
@@ -27,12 +17,12 @@ const Component: FC<Props> = ({
   placeholder = "Подсказка",
   list = [],
   value = "",
-  onChange
+  onChange,
 }) => {
   useEffect(() => {
     setFilteredList(list);
 
-    const inputValue = list.find(item => item.id === value);
+    const inputValue = list.find((item) => item.id === value);
     inputValue && setInputValue(inputValue.label);
   }, [list, value]);
 
@@ -48,7 +38,7 @@ const Component: FC<Props> = ({
 
     setInputValue(value);
     setFilteredList(
-      list.filter(item =>
+      list.filter((item) =>
         item.label.toLowerCase().includes(value.toLowerCase())
       )
     );
@@ -66,14 +56,15 @@ const Component: FC<Props> = ({
   };
 
   return (
-    <div className={`select ${className}`}>
-      <label htmlFor={id} className="select__label">
+    <div className={`select ${className}`} data-testid={`${id}-wrapper`}>
+      <label htmlFor={id} className="select__label" data-testid={`${id}-label`}>
         {label}
       </label>
       <input
         id={id}
         type="text"
         className="select__field"
+        data-testid={`${id}-input`}
         placeholder={placeholder}
         value={inputValue}
         onChange={handleFilterList}
@@ -86,15 +77,17 @@ const Component: FC<Props> = ({
             ? "select__switcher--expanded"
             : "select__switcher--collapsed"
         }`}
+        data-testid={`${id}-switcher`}
         onClick={handleToggleSelect}
       />
       {selectIsExpanded && (
-        <ul className="select__data-list">
-          {filteredList.map(item => (
+        <ul className="select__data-list" data-testid={`${id}-data-list`}>
+          {filteredList.map((item, i) => (
             <li
               key={item.id}
               id={item.id}
               className="select__list-item"
+              data-testid={`${id}-data-list-item-${i}`}
               onClick={handleSelectValue}
             >
               {item.label}
