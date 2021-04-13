@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing <Input /> it should be rendered correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="input input-test-class"
+    data-testid="input-test-id-wrapper"
+  >
+    <label
+      class="input__label"
+      data-testid="input-test-id-label"
+      for="input-test-id"
+    >
+      input-test-label
+    </label>
+    <input
+      class="input__field"
+      data-testid="input-test-id-input"
+      id="input-test-id"
+      placeholder="input-test-placeholder"
+      type="text"
+      value="input-test-value"
+    />
+  </div>
+</DocumentFragment>
+`;

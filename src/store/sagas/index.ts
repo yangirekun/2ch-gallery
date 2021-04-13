@@ -3,10 +3,7 @@ import { all, call, put, takeEvery } from "redux-saga/effects";
 
 import { boardsActionCreators, mediaActionCreators } from "../actions";
 
-import {
-  boardsActions,
-  mediaActions,
-} from "../../constants";
+import { boardsActions, mediaActions } from "../../constants";
 
 import { Image, Board, ImagesAction } from "../types";
 
@@ -31,7 +28,7 @@ function* onFetchImages() {
       const { data }: AxiosResponse<Image[]> = yield call(
         axios,
         `/api/images`,
-        { params: { boardID, threadID } },
+        { params: { boardID, threadID } }
       );
 
       yield put(mediaActionCreators.fetchImagesSuccess(data));
@@ -42,52 +39,59 @@ function* onFetchImages() {
 }
 
 function* onDownloadImages() {
-  yield takeEvery(mediaActions.DOWNLOAD_IMAGES_REQUEST, function* downloadImages({
-    imagesList = [],
-  }: ImagesAction) {
-    try {
-      yield call(axios, `/api/download-images`, {
-        method: "post",
-        data: { images: imagesList },
-      });
+  yield takeEvery(
+    mediaActions.DOWNLOAD_IMAGES_REQUEST,
+    function* downloadImages({ imagesList = [] }: ImagesAction) {
+      try {
+        yield call(axios, `/api/download-images`, {
+          method: "post",
+          data: { images: imagesList },
+        });
 
-      yield call(() => new Promise((res) => {
-        let i = 0;
+        yield call(
+          () =>
+            new Promise(res => {
+              let i = 0;
 
-        const timer = setInterval(() => {
-          if (i < imagesList.length) {
-            const link = document.createElement("a");
+              const timer = setInterval(() => {
+                if (i < imagesList.length) {
+                  const link = document.createElement("a");
 
-            link.download = imagesList[i].fileName;
-            link.href = `/images/${imagesList[i].fileName}`;
+                  link.download = imagesList[i].fileName;
+                  link.href = `/images/${imagesList[i].fileName}`;
 
-            link.click();
-            i++;
-          } else {
-            clearInterval(timer);
-            res();
-          }
-        }, 500);
-      }));
+                  link.click();
+                  i++;
+                } else {
+                  clearInterval(timer);
+                  res(0);
+                }
+              }, 500);
+            })
+        );
 
-      yield put(mediaActionCreators.downloadImagesSuccess());
-      yield put(mediaActionCreators.removeImagesRequest());
-    } catch {
-      yield put(mediaActionCreators.downloadImagesFailure());
+        yield put(mediaActionCreators.downloadImagesSuccess());
+        yield put(mediaActionCreators.removeImagesRequest());
+      } catch {
+        yield put(mediaActionCreators.downloadImagesFailure());
+      }
     }
-  });
+  );
 }
 
 function* onRemoveImages() {
-  yield takeEvery(mediaActions.REMOVE_IMAGES_REQUEST, function* downloadImages() {
-    try {
-      yield call(axios, `/api/remove-images`);
+  yield takeEvery(
+    mediaActions.REMOVE_IMAGES_REQUEST,
+    function* downloadImages() {
+      try {
+        yield call(axios, `/api/remove-images`);
 
-      yield put(mediaActionCreators.removeImagesSuccess());
-    } catch {
-      yield put(mediaActionCreators.removeImagesFailure());
+        yield put(mediaActionCreators.removeImagesSuccess());
+      } catch {
+        yield put(mediaActionCreators.removeImagesFailure());
+      }
     }
-  });
+  );
 }
 
 export function* rootSaga() {

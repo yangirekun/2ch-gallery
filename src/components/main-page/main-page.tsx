@@ -3,8 +3,8 @@ import React, { FC, memo } from "react";
 import { FiltersContainer } from "../../containers/filters";
 import { GalleryContainer } from "../../containers/gallery";
 
-import { Spinner } from "../spinner";
-import { Error } from "../error";
+import { Spinner } from "../../components-library/spinner";
+import { Error } from "../../components-library/error";
 
 type Props = {
   isLoading: boolean;

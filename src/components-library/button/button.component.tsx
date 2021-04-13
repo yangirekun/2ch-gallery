@@ -1,14 +1,6 @@
-import React, { FC, memo, FormEvent } from "react";
-
-import "./button.css";
-
-type Props = {
-  id: string;
-  label?: string;
-  className?: string;
-  disabled?: boolean;
-  onClick?: (e: FormEvent<HTMLButtonElement>) => void;
-};
+import React, { FC, memo } from "react";
+import "./button.styles.css";
+import { Props } from "./button.types";
 
 const Component: FC<Props> = ({
   id,
@@ -20,6 +12,7 @@ const Component: FC<Props> = ({
   <button
     type="button"
     id={id}
+    data-testid={`${id}-button`}
     className={`button ${className}`}
     disabled={disabled}
     onClick={onClick}

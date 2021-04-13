@@ -1,8 +1,8 @@
 import React, { FC, memo, FormEvent } from "react";
 
-import { Input } from "../input";
-import { Select } from "../select";
-import { Button } from "../button";
+import { Input } from "../../components-library/input";
+import { Select } from "../../components-library/select";
+import { Button } from "../../components-library/button";
 
 import "./filters.css";
 

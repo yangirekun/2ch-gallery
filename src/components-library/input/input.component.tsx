@@ -1,15 +1,6 @@
 import React, { FC, memo, FormEvent } from "react";
-
-import "./input.css";
-
-type Props = {
-  id: string;
-  label?: string;
-  className?: string;
-  placeholder?: string;
-  value?: string;
-  onChange?: (args: { value: string }) => void;
-};
+import "./input.styles.css";
+import { Props } from "./input.types";
 
 const Component: FC<Props> = ({
   id,
@@ -28,14 +19,15 @@ const Component: FC<Props> = ({
   };
 
   return (
-    <div className={`input ${className}`}>
-      <label htmlFor={id} className="input__label">
+    <div className={`input ${className}`} data-testid={`${id}-wrapper`}>
+      <label htmlFor={id} className="input__label" data-testid={`${id}-label`}>
         {label}
       </label>
       <input
         id={id}
         type="text"
         className="input__field"
+        data-testid={`${id}-input`}
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
