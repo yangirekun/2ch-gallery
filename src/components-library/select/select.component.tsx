@@ -39,13 +39,8 @@ const Component: FC<Props> = ({
     setInputValue(value);
     setFilteredList(
       list.filter((item) =>
-<<<<<<< HEAD:src/components-library/select/select.component.tsx
         item.label.toLowerCase().includes(value.toLowerCase())
       )
-=======
-        item.label.toLowerCase().includes(value.toLowerCase()),
-      ),
->>>>>>> e033d4007658c0de3fe943c41652189a1a24d460:src/components/select/select.tsx
     );
 
     if (!selectIsExpanded) {
@@ -88,13 +83,8 @@ const Component: FC<Props> = ({
         onClick={handleToggleSelect}
       />
       {selectIsExpanded && (
-<<<<<<< HEAD:src/components-library/select/select.component.tsx
         <ul className="select__data-list" data-testid={`${id}-data-list`}>
           {filteredList.map((item, i) => (
-=======
-        <ul className="select__data-list">
-          {filteredList.map((item) => (
->>>>>>> e033d4007658c0de3fe943c41652189a1a24d460:src/components/select/select.tsx
             <li
               key={item.id}
               id={item.id}

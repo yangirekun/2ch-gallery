@@ -49,7 +49,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint"
+      "pre-commit": "yarn lint & yarn build & yarn test"
     }
   },
   "eslintConfig": {

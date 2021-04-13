@@ -7,7 +7,6 @@ describe("testing <Select />", () => {
   test("it should be rendered correctly", () => {
     const renderResult = render(<Select {...mockProps[0]} />);
     const { getByTestId } = renderResult;
-
     expect(renderResult.asFragment()).toMatchSnapshot();
     fireEvent.click(getByTestId("select-test-id-switcher"));
     expect(renderResult.asFragment()).toMatchSnapshot();
@@ -19,7 +18,7 @@ describe("testing <Select />", () => {
     fireEvent.click(toggle);
     expect(
       container.querySelector(`[data-testid="select-test-id-data-list"`)
-    ).toBeVisible();
+    ).not.toBeNull();
     fireEvent.click(toggle);
     expect(
       container.querySelector(`[data-testid="select-test-id-data-list`)
