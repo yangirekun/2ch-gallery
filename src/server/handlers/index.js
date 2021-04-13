@@ -9,5 +9,5 @@ module.exports = {
   boardsFetch: handleBoardsFetch,
   imagesFetch: handleImagesFetch,
   downloadImagesToServer: handleDownloadImagesToServer,
-  removeImagesFromServer: handleRemoveImagesFromServer
+  removeImagesFromServer: handleRemoveImagesFromServer,
 };

@@ -1,7 +1,7 @@
 import React, { FC, useState, useCallback, FormEvent } from "react";
 import { connect } from "react-redux";
 
-import { fetchImages, downloadImages } from "../../store/actions";
+import { mediaActionCreators } from "../../store/actions";
 
 import { Filters } from "../../components/filters";
 
@@ -12,25 +12,24 @@ import { Store, Board, Image } from "../../store/types";
 type Props = {
   boardsList?: ReadonlyArray<Board>;
   imagesList?: ReadonlyArray<Image>;
-  fetchImages: typeof fetchImages;
-  downloadImages: typeof downloadImages;
+  fetchImages: typeof mediaActionCreators.fetchImagesRequest;
+  downloadImages: typeof mediaActionCreators.downloadImagesRequest;
 };
 
 const Container: FC<Props> = ({
   boardsList = [],
   imagesList = [],
   fetchImages,
-  downloadImages
+  downloadImages,
 }) => {
-  
   const [boardID, setBoardID] = useState("");
-  const handleChangeBoardID = useCallback(({ value }: { value: string }) => {
-    setBoardID(value);
+  const handleChangeBoardID = useCallback((args: { value: string }) => {
+    setBoardID(args.value);
   }, []);
 
   const [threadID, setThreadID] = useState("");
-  const handleChangeThreadID = useCallback(({ value }: { value: string }) => {
-    setThreadID(value);
+  const handleChangeThreadID = useCallback((args: { value: string }) => {
+    setThreadID(args.value);
   }, []);
 
   const handleSearchMedia = useCallback(
@@ -39,7 +38,7 @@ const Container: FC<Props> = ({
 
       fetchImages(boardID, threadID);
     },
-    [boardID, threadID, fetchImages]
+    [boardID, threadID, fetchImages],
   );
 
   const handleDownloadAll = useCallback(
@@ -48,7 +47,7 @@ const Container: FC<Props> = ({
 
       downloadImages(imagesList);
     },
-    [imagesList, downloadImages]
+    [imagesList, downloadImages],
   );
 
   return (
@@ -67,15 +66,15 @@ const Container: FC<Props> = ({
 
 const stateToProps = (state: Store) => ({
   boardsList: getBoards(state),
-  imagesList: getImages(state)
+  imagesList: getImages(state),
 });
 
 const dispatchToProps = {
-  fetchImages,
-  downloadImages
+  fetchImages: mediaActionCreators.fetchImagesRequest,
+  downloadImages: mediaActionCreators.downloadImagesRequest,
 };
 
 export const FiltersContainer = connect(
   stateToProps,
-  dispatchToProps
+  dispatchToProps,
 )(Container);

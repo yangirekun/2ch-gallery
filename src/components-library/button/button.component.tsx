@@ -10,6 +10,7 @@ const Component: FC<Props> = ({
   onClick,
 }) => (
   <button
+    type="button"
     id={id}
     data-testid={`${id}-button`}
     className={`button ${className}`}

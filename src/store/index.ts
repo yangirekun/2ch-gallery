@@ -1,14 +1,19 @@
 import { applyMiddleware, createStore } from "redux";
-import { SagaMiddleware } from "redux-saga";
+import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import logger from "redux-logger";
 
 import { rootReducer } from "./reducers";
+import { rootSaga } from "./sagas";
 
-export default function configureStore(sagaMiddleware: SagaMiddleware) {
-  const storeEnhacer = process.env.NODE_ENV
-    ? composeWithDevTools(applyMiddleware(sagaMiddleware, logger))
-    : applyMiddleware(sagaMiddleware);
+const sagaMiddleware = createSagaMiddleware();
 
-  return createStore(rootReducer, storeEnhacer);
-}
+const storeEnhacer = process.env.NODE_ENV === "development"
+  ? composeWithDevTools(applyMiddleware(sagaMiddleware, logger))
+  : applyMiddleware(sagaMiddleware);
+
+const store = createStore(rootReducer, storeEnhacer);
+
+sagaMiddleware.run(rootSaga);
+
+export default store;

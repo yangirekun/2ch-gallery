@@ -11,15 +11,10 @@ type Props = {
   imagesList?: ReadonlyArray<Image>;
 };
 
-const Container: FC<Props> = ({ imagesList = [] }) => {
-  return <Gallery imagesList={imagesList} />;
-};
+const Container: FC<Props> = ({ imagesList = [] }) => <Gallery imagesList={imagesList} />;
 
 const stateToProps = (state: Store) => ({
-  imagesList: getImages(state)
+  imagesList: getImages(state),
 });
 
-export const GalleryContainer = connect(
-  stateToProps,
-  null
-)(Container);
+export const GalleryContainer = connect(stateToProps, null)(Container);

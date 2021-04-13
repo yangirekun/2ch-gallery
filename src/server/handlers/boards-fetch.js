@@ -3,14 +3,14 @@ const axios = require("axios");
 async function handleBoardsFetch(req, res) {
   try {
     const {
-      data: { boards }
+      data: { boards },
     } = await axios(`http://2ch.hk/boards.json`);
 
     res.json(
-      boards.map(board => ({
+      boards.map((board) => ({
         id: board.id,
-        label: board.name
-      }))
+        label: board.name,
+      })),
     );
   } catch (error) {
     console.error(error);

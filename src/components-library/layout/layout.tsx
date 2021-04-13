@@ -8,7 +8,9 @@ const Component: FC = ({ children }) => (
     <header className="app-header" />
     <main className="app-main">{children}</main>
     <footer className="app-footer">
-      implemented by <i>yangirekun</i>
+      implemented by
+      {' '}
+      <i>yangirekun</i>
     </footer>
   </div>
 );

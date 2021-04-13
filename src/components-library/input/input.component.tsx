@@ -13,7 +13,9 @@ const Component: FC<Props> = ({
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
 
-    onChange && onChange({ value });
+    if (onChange) {
+      onChange({ value });
+    }
   };
 
   return (
